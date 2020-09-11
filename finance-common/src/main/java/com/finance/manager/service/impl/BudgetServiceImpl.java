@@ -1,6 +1,6 @@
 package com.finance.manager.service.impl;
 
-import com.finance.manager.component.Budget;
+import com.finance.manager.entity.Budget;
 import com.finance.manager.repository.BudgetRepository;
 import com.finance.manager.service.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,19 @@ public class BudgetServiceImpl implements BudgetService {
     }
 
     @Override
-    public long getBudgetSum() {
+    public double getBudgetSum() {
         List<Budget> budgetList = budgetRepository.findAll();
-        long sum = 0;
+        double sum = 0;
         for(Budget budget: budgetList){
-            sum += budget.getExpense();
+            sum += budget.getAmount();
         }
         return sum;
     }
+
+    @Override
+    public void addBudget(Budget budget){
+        budgetRepository.insert(budget);
+    }
+
+
 }
