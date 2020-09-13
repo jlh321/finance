@@ -1,3 +1,8 @@
 <p>
   budget works!
 </p>
+<nz-month-picker [(ngModel)]="date" [nzFormat]="monthFormat" (ngModelChange)="onChange($event)" 
+nzPlaceHolder="Select month"></nz-month-picker>
+<p>The sum of budget of this month is 5000.0</p>
+
+

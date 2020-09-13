@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BudgetComponent implements OnInit {
 
+  date = null;
+  monthFormat = 'yyyy/MM';
   constructor() { }
 
   ngOnInit() {
+    this.date = new Date();
   }
 
+  onChange(result: Date): void {
+    console.log('onChange: ', result);
+    console.log('onChange: ', this.date);
+  }
+
+  
 }
