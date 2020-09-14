@@ -25,10 +25,16 @@ public class BudgetController {
         return budgetService.getBudgetSum();
     }
 
-    @PostMapping (produces = "application/json", consumes = "application/json")
+    @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<Budget> addBudget(@RequestBody Budget budget){
         budgetService.addBudget(budget);
         URI uri = URI.create("/budget/" + budget.getId());
         return ResponseEntity.created(uri).body(budget);
     }
+
+    @PutMapping(produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Budget> putBudget(@PathVariable int id, @RequestBody Budget budget){
+        return budgetService.putBudget(budget);
+    }
+
 }

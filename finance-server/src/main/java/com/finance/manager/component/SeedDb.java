@@ -21,6 +21,6 @@ public class SeedDb {
     public void init(){
         budgetRepository.save(new Budget(1,9.7,1,2020,9));
         budgetRepository.save(new Budget(2,10.5,2,2020,9));
-        budgetRepository.save(new Budget(2,22.1,2,2020,9));
+        budgetRepository.save(new Budget(3,22.1,2,2020,9));
     }
 }
