@@ -1,13 +1,7 @@
 package com.finance.manager.component;
 
-import com.finance.manager.entity.Account;
-import com.finance.manager.entity.Budget;
-import com.finance.manager.entity.Category;
-import com.finance.manager.entity.Expense;
-import com.finance.manager.repository.AccountRepository;
-import com.finance.manager.repository.BudgetRepository;
-import com.finance.manager.repository.CategoryRepository;
-import com.finance.manager.repository.ExpenseRepository;
+import com.finance.manager.entity.*;
+import com.finance.manager.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,16 +18,8 @@ public class SeedDb {
     private CategoryRepository categoryRepository;
     @Autowired
     private AccountRepository accountRepository;
-
-//    @Autowired
-//    SeedDb(BudgetRepository budgetRepository, ExpenseRepository expenseRepository, CategoryRepository categoryRepository,
-//           AccountRepository accountRepository){
-//        this.budgetRepository = budgetRepository;
-//        this.expenseRepository = expenseRepository;
-//        this.categoryRepository = categoryRepository;
-//        this.accountRepository = accountRepository;
-//    }
-
+    @Autowired
+    private AccountTransactionRepository accountTransactionRepository;
 
     @PostConstruct
     public void init(){
@@ -43,6 +29,7 @@ public class SeedDb {
         expenseRepository.save(new Expense(3,22.1,2,2020,9,22,"dea"));
         categoryRepository.save(new Category(1,"Water"));
         accountRepository.save(new Account(1,"Water"));
-
+        accountRepository.save(new Account(2,"Gas"));
+        accountTransactionRepository.save(new AccountTransaction(112,21,2020,9,14,"good",1));
     }
 }
