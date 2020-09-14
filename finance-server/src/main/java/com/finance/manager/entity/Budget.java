@@ -67,14 +67,4 @@ public class Budget implements Serializable {
         this.month = month;
     }
 
-    @Override
-    public String toString() {
-        return "Budget{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", catId=" + catId +
-                ", year=" + year +
-                ", month=" + month +
-                '}';
-    }
 }
