@@ -16,9 +16,6 @@ public class Budget implements Serializable {
 
     private int month;
 
-    public Budget(){
-    }
-
     public Budget(int id, double amount, int catId, int year, int month) {
         this.id = id;
         this.amount = amount;
@@ -26,6 +23,8 @@ public class Budget implements Serializable {
         this.year = year;
         this.month = month;
     }
+
+    public Budget(){}
 
     public int getId() {
         return id;

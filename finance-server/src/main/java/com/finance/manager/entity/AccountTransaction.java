@@ -1,28 +1,42 @@
 package com.finance.manager.entity;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
 
-public class Expense {
+
+public class AccountTransaction {
     @Id
     private int id;
-
     private double amount;
+    private int year;
+    private int month;
+    private int day;
+    private String description;
+    private int accountId;
 
-    private int catId;
-
-    public Expense(int id, double amount, int catId, int year, int month, int day, String description) {
+    public AccountTransaction(int id, double amount, int year, int month, int day, String description, int accountId) {
         this.id = id;
         this.amount = amount;
-        this.catId = catId;
         this.year = year;
         this.month = month;
         this.day = day;
         this.description = description;
+        this.accountId = accountId;
     }
 
-    public Expense(){
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public int getYear() {
@@ -49,38 +63,6 @@ public class Expense {
         this.day = day;
     }
 
-    private int year;
-
-    private int month;
-
-    private int day;
-
-    private String description;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public int getCatId() {
-        return catId;
-    }
-
-    public void setCatId(int catId) {
-        this.catId = catId;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -89,4 +71,11 @@ public class Expense {
         this.description = description;
     }
 
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
 }

@@ -1,4 +1,7 @@
 package com.finance.manager.repository;
 
-public interface AccountRepository {
+import com.finance.manager.entity.Account;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface AccountRepository extends MongoRepository<Account,Integer> {
 }
