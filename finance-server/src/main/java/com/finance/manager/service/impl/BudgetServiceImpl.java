@@ -70,7 +70,7 @@ public class BudgetServiceImpl implements BudgetService {
     public ResponseEntity<Budget> putBudget(Budget budget) {
         if(budgetRepository.existsById(budget.getId())){
             budgetRepository.save(budget);
-            return ResponseEntity.ok(budget);
+            return ResponseEntity.ok().body(budget);
         }else {
             return ResponseEntity.notFound().build();
         }
