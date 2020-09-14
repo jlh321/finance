@@ -5,8 +5,7 @@ import com.finance.manager.service.BudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/budget")
@@ -21,20 +20,28 @@ public class BudgetController {
     }
 
     @GetMapping(value = "/sum", produces = "application/json")
-    public double getBudgetSum(){
-        return budgetService.getBudgetSum();
+    public ResponseEntity getBudgetSumByMonth(@RequestParam int month, @RequestParam int year){
+        return budgetService.getBudgetSumByMonth(month, year);
+    }
+
+    @GetMapping(produces = "application/json", consumes = "application/json")
+    public ResponseEntity<List<Budget>> getBudgetByMonth(@RequestParam int month, @RequestParam int year){
+        return budgetService.getBudgetByMonth(month, year);
     }
 
     @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<Budget> addBudget(@RequestBody Budget budget){
-        budgetService.addBudget(budget);
-        URI uri = URI.create("/budget/" + budget.getId());
-        return ResponseEntity.created(uri).body(budget);
+        return budgetService.addBudget(budget);
     }
 
     @PutMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Budget> putBudget(@PathVariable int id, @RequestBody Budget budget){
+    public ResponseEntity<Budget> putBudget(@RequestBody Budget budget){
         return budgetService.putBudget(budget);
+    }
+
+    @DeleteMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Budget> putBudget(@PathVariable int id){
+        return budgetService.deleteBudget(id);
     }
 
 }
