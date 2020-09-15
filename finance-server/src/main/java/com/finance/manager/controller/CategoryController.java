@@ -41,7 +41,7 @@ public class CategoryController {
         return ResponseEntity.created(uri).body(categoryResponse);
     }
 
-    @DeleteMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
+    @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Category> deleteCategory(@PathVariable String id){
         if (categoryService.existsById(id)) {
             Category category = categoryService.deleteCategory(id);
