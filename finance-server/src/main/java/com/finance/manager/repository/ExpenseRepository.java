@@ -2,12 +2,13 @@ package com.finance.manager.repository;
 
 import com.finance.manager.entity.Budget;
 import com.finance.manager.entity.Expense;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
-public interface ExpenseRepository extends MongoRepository<Expense, Integer> {
+public interface ExpenseRepository extends MongoRepository<Expense, String> {
 
     List<Expense> getExpenseByDayIsAndMonthIsAndYearIs(int day, int month, int year);
 

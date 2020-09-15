@@ -1,10 +1,14 @@
 package com.finance.manager.controller;
 
 import com.finance.manager.entity.Budget;
+import com.finance.manager.entity.Expense;
 import com.finance.manager.service.BudgetService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -13,7 +17,6 @@ import java.util.List;
 public class BudgetController {
 
     private BudgetService budgetService;
-
     @Autowired
     public BudgetController(BudgetService budgetService){
         this.budgetService = budgetService;
@@ -21,27 +24,46 @@ public class BudgetController {
 
     @GetMapping(value = "/sum", produces = "application/json")
     public ResponseEntity getBudgetSumByMonth(@RequestParam int month, @RequestParam int year){
-        return budgetService.getBudgetSumByMonth(month, year);
+        Double budgetSumByMonth = budgetService.getBudgetSumByMonth(month, year);
+        return ResponseEntity.ok().body(budgetSumByMonth);
     }
 
-    @GetMapping(produces = "application/json", consumes = "application/json")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Budget>> getBudgetByMonth(@RequestParam int month, @RequestParam int year){
-        return budgetService.getBudgetByMonth(month, year);
+        List<Budget> budgetList = budgetService.getBudgetByMonth(month, year);
+        if(null == budgetList || budgetList.size() == 0){
+            return ResponseEntity.notFound().build();
+        }else {
+            return ResponseEntity.ok().body(budgetList);
+        }
     }
 
     @PostMapping(produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Budget> addBudget(@RequestBody Budget budget){
-        return budgetService.addBudget(budget);
+    public ResponseEntity<String> addBudget(@RequestBody Budget budget){
+        Budget budgetResponse = budgetService.addBudget(budget);
+        URI uri = URI.create("/budget/" + budget.getId());
+        String id = budget.getId().toString();
+        return ResponseEntity.created(uri).body(id);
     }
 
     @PutMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<Budget> putBudget(@RequestBody Budget budget){
-        return budgetService.putBudget(budget);
+        if (budgetService.existsById(budget.getId())) {
+            Budget budgetResponse = budgetService.putBudget(budget);
+            return ResponseEntity.ok().body(budgetResponse);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @DeleteMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Budget> putBudget(@PathVariable int id){
-        return budgetService.deleteBudget(id);
+    @DeleteMapping(produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Budget> deleteBudget(@RequestBody Budget budget){
+        if (budgetService.existsById(budget.getId())) {
+            Budget budgetResponse = budgetService.deleteBudget(budget);
+            return ResponseEntity.ok().body(budgetResponse);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
 }
+

@@ -1,18 +1,19 @@
 package com.finance.manager.entity;
 
+import org.bson.types.ObjectId;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.annotation.Id;
 
 public class Expense {
     @Id
-    private int id;
+    private String id;
 
     private double amount;
 
     private int catId;
 
-    public Expense(int id, double amount, int catId, int year, int month, int day, String description) {
-        this.id = id;
+    public Expense(double amount, int catId, int year, int month, int day, String description) {
+//        this.id = id;
         this.amount = amount;
         this.catId = catId;
         this.year = year;
@@ -57,11 +58,11 @@ public class Expense {
 
     private String description;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

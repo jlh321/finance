@@ -1,36 +1,36 @@
 package com.finance.manager.entity;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 
 public class Budget implements Serializable {
     @Id
-    private int id;
+    private String id = null;
 
     private double amount;
 
-    private int catId;
+    private Category category;
 
     private int year;
 
     private int month;
 
-    public Budget(int id, double amount, int catId, int year, int month) {
-        this.id = id;
+    public Budget(double amount, Category category, int year, int month) {
         this.amount = amount;
-        this.catId = catId;
+        this.category = category;
         this.year = year;
         this.month = month;
     }
 
-    public Budget(){}
-
-    public int getId() {
-        return id;
+    public String getId() {
+        return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,13 +42,6 @@ public class Budget implements Serializable {
         this.amount = amount;
     }
 
-    public int getCatId() {
-        return catId;
-    }
-
-    public void setCatId(int catId) {
-        this.catId = catId;
-    }
 
     public int getYear() {
         return year;
@@ -66,4 +59,11 @@ public class Budget implements Serializable {
         this.month = month;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

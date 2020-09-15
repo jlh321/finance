@@ -1,8 +1,10 @@
 package com.finance.manager.service.impl;
 
+import com.finance.manager.entity.Budget;
 import com.finance.manager.entity.Category;
 import com.finance.manager.repository.CategoryRepository;
 import com.finance.manager.service.CategoryService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,30 +24,26 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ResponseEntity<List<Category>> getAllCategories() {
+    public List<Category> getAllCategories() {
         List<Category> categoryList =  categoryRepository.findAll();
-        if(categoryList == null || categoryList.size()==0){
-            return ResponseEntity.notFound().build();
-        }else {
-            return ResponseEntity.ok().body(categoryList);
-        }
+        return categoryList;
     }
 
     @Override
-    public ResponseEntity<Category> setCategory(Category category) {
+    public Category setCategory(Category category) {
         categoryRepository.save(category);
-        URI uri = URI.create("/category/" + category.getId());
-        return ResponseEntity.created(uri).body(category);
+        return category;
     }
 
     @Override
-    public ResponseEntity<Category> deleteCategory(int id) {
-        if(!categoryRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }else {
-            System.out.println("Deleting item id " + id);
-            categoryRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
+    public Category deleteCategory(String id) {
+        Category category = categoryRepository.findById(id).get();
+        categoryRepository.deleteById(id);
+        return category;
+    }
+
+    @Override
+    public boolean existsById(String id){
+        return categoryRepository.existsById(id);
     }
 }

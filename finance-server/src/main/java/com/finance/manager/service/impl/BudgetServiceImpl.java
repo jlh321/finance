@@ -1,8 +1,10 @@
 package com.finance.manager.service.impl;
 
 import com.finance.manager.entity.Budget;
+import com.finance.manager.entity.Expense;
 import com.finance.manager.repository.BudgetRepository;
 import com.finance.manager.service.BudgetService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,62 +21,57 @@ public class BudgetServiceImpl implements BudgetService {
     private BudgetRepository budgetRepository;
 
     @Autowired
-    BudgetServiceImpl(BudgetRepository budgetRepository){
+    BudgetServiceImpl(BudgetRepository budgetRepository) {
         this.budgetRepository = budgetRepository;
     }
 
 
     @Override
-    public ResponseEntity getBudgetSumByMonth(int month, int year) {
+    public double getBudgetSumByMonth(int month, int year) {
         List<Budget> budgetList = budgetRepository.getBudgetByMonthIsAndYearIs(month, year);
-        if(null == budgetList || budgetList.size() ==0 ){
-            return ResponseEntity.notFound().build();
-        }else {
+        if (budgetList == null || budgetList.size() == 0) {
+            return 0;
+        } else {
             int sum = 0;
-            for(Budget budget : budgetList){
+            for (Budget budget : budgetList) {
                 sum += budget.getAmount();
             }
-            return ResponseEntity.ok().body(sum);
+            return sum;
         }
     }
 
     @Override
-    public ResponseEntity<List<Budget>> getBudgetByMonth(int month, int year) {
+    public List<Budget> getBudgetByMonth(int month, int year) {
         List<Budget> budgetList = budgetRepository.getBudgetByMonthIsAndYearIs(month, year);
-        if(null == budgetList || budgetList.size() ==0 ){
-            return ResponseEntity.notFound().build();
-        }else {
-            return ResponseEntity.ok().body(budgetList);
-        }
+        return budgetList;
     }
 
     @Override
-    public ResponseEntity deleteBudget(int id) {
-        if(!budgetRepository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }else {
-            System.out.println("Deleting item id " + id);
-            budgetRepository.deleteById(id);
-            return ResponseEntity.ok().build();
-        }
+    public Budget deleteBudget(Budget budget) {
+        Budget budgetResponse = budget;
+        budgetRepository.delete(budget);
+        return budget;
+    }
+
+
+    @Override
+    public Budget addBudget(Budget budget) {
+        Budget budget1 = budgetRepository.save(budget);
+        return budget1;
     }
 
     @Override
-    public ResponseEntity<Budget> addBudget(Budget budget){
+    public boolean existsById(String id){
+        Budget budget = budgetRepository.findById(id).get();
+        if(budget == null){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Budget putBudget(Budget budget) {
         budgetRepository.save(budget);
-        URI uri = URI.create("/budget/" + budget.getId());
-        return ResponseEntity.created(uri).body(budget);
+        return budget;
     }
-
-    @Override
-    public ResponseEntity<Budget> putBudget(Budget budget) {
-        if(budgetRepository.existsById(budget.getId())){
-            budgetRepository.save(budget);
-            return ResponseEntity.ok().body(budget);
-        }else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-
 }

@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface AccountTransactionService {
-    ResponseEntity<AccountTransaction> setAccountTransaction(AccountTransaction account);
-    ResponseEntity<AccountTransaction> deleteAccountTransaction(int id);
-    ResponseEntity<List<AccountTransaction>> getTransactionsByAccount(int accountId);
+    AccountTransaction setAccountTransaction(AccountTransaction account);
+    AccountTransaction deleteAccountTransaction(int id);
+    List<AccountTransaction> getTransactionsByAccount(int accountId);
 }
