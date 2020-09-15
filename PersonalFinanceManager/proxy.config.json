@@ -1,5 +1,9 @@
 {
     "/budget":{
       "target":"http://localhost:8080"
+    },
+
+    "/expense/*":{
+      "target":"http://localhost:8080"
     }
 }

@@ -2,3 +2,7 @@
     margin-right: 8px;
     margin-bottom: 12px;
   }
+
+  form {
+    max-width: 600px;
+  }

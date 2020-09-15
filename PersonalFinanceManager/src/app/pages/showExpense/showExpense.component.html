@@ -46,13 +46,13 @@
         </nz-form-control>
       </nz-form-item>
         <nz-form-item>
-          <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>date</nz-form-label>
-          <nz-form-control [nzSm]="16" [nzXs]="24">
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>date</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24">
             <nz-date-picker formControlName="datePicker"></nz-date-picker>
           </nz-form-control>
         </nz-form-item>
       <nz-form-item>
-      <nz-form-label [nzSpan]="5" nzFor="category" nzRequired>Gender</nz-form-label>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>category</nz-form-label>
         <nz-form-control [nzSpan]="12" nzErrorTip="Please select the category!">
           <nz-select
             id="category"
@@ -63,11 +63,7 @@
           </nz-select>
         </nz-form-control>
       </nz-form-item>
-      <nz-form-item>
-        <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
-          <button nz-button nzType="primary">Submit</button>
-        </nz-form-control>
-      </nz-form-item>
+    
     </form>
   </ng-template>
 

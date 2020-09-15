@@ -13,6 +13,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ShowExpenseComponent implements OnInit {
 
+  validateForm!: FormGroup;
   public category:Category[]=[{
     "id":1,
     "name":"home/rent"
@@ -42,7 +43,10 @@ export class ShowExpenseComponent implements OnInit {
               private fb: FormBuilder) { }
 
   ngOnInit() {
-    //this,this.getExpenses(0,0,0,0);
+    this.validateForm = this.fb.group({
+      datePicker: [null],
+    });
+    this.getExpenses(0,0,0,0);
   }
 
   getExpenses(type:number,day:number,month:number,year:number): void {
@@ -86,9 +90,9 @@ export class ShowExpenseComponent implements OnInit {
   //for display
   isVisible = false;
   isConfirmLoading = false;
-  validateForm!: FormGroup;
+ 
   submitForm(): void {
-    
+    console.log(this.validateForm.value);
   }
   showModal(): void {
     this.isVisible = true;
@@ -103,6 +107,7 @@ export class ShowExpenseComponent implements OnInit {
   }
 
   handleCancel(): void {
+    console.log(this.validateForm.value);
     this.isVisible = false;
   }
 
