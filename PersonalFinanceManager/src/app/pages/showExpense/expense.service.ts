@@ -21,14 +21,19 @@ export class ExpenseService {
 
   //different situation for display
   buildGetUrl (type:number,day:number,month:number,year:number) : string{
-    var url;
+    var url:string;
+    console.log("type:"+type+"  month:"+month);
     switch (type){
     case 1:
       url=this.baseExpenseUrl+'?day='+day+'&month='+month+'&year='+year;
+      break;
     case 2:
+      console.log("enter");
       url=this.baseExpenseUrl+'?month='+month+'&year='+year;
+      break;
     case 3:
       url=this.baseExpenseUrl+'?year='+year;
+      break;
     default:
       url=this.baseExpenseUrl;
     }
@@ -47,12 +52,10 @@ addExpense(expense:Expense):Observable<Expense>{
   return this.http.post<Expense>(this.baseExpenseUrl,expense,this.httpOptions);
 }
 
-deleteExpense(catogory:Expense | number):Observable<Expense>{
-  const id=typeof catogory==='number'?catogory:catogory.id;
-  const url='${this.catogoryUrl}/${id}';
-  
-  return this.http.delete<Expense>(url,this.httpOptions);
+deleteExpense(id: number):Observable<Expense>{
+  var url:string=this.baseExpenseUrl+"/"+id;
+  console.log("delete url : "+url);
+  return this.http.delete<Expense>(url);
 }
-
 
 }

@@ -10,22 +10,51 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of basicTable.data">
-      <td>1</td>
+    <tr *ngFor="let data of basicTable.data, let i=index" >
+      <td>{{i+1}}</td>
       <td>{{ data.amount }}</td>
       <td>{{ data.description }}</td>
       <td>{{ data.category.name }}</td>
-      <td>{{ data.date }}</td>
+      <td>{{ buildDate(data) }}</td>
       <td>
-        <button nz-button nzType="default" (click)="showModal()">update</button>
+        <button nz-button nzType="default" (click)="openDrawer()">update</button>
         <nz-divider nzType="vertical"></nz-divider>
-        <button nz-button nzType="default" (click)="showDeleteConfirm()">delete</button>
+        <button nz-button nzType="default" (click)="showDeleteConfirm(data)">delete</button>
       </td>
     </tr>
   </tbody>
 </nz-table>
 
-<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
+  [nzMaskClosable]="false"
+  [nzWidth]="520"
+  [nzVisible]="isVisible"
+  nzTitle="Update Expense"
+  (nzOnClose)="closeDrawer()"
+>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>amount</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input  id="amount" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">description</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input  id="description" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button nzType="primary" >Submit</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+</nz-drawer>
+
+<!-- <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" [nzContent]="modalContent" [nzFooter]="modalFooter"
   (nzOnCancel)="handleCancel()">
   <ng-template #modalTitle>
     Update Expense
@@ -71,4 +100,4 @@
     <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
     <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Submit</button>
   </ng-template>
-</nz-modal>
+</nz-modal> -->

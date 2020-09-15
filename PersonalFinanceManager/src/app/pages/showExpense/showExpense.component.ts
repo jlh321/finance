@@ -14,28 +14,22 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class ShowExpenseComponent implements OnInit {
 
   validateForm!: FormGroup;
-  public category:Category[]=[{
-    "id":1,
-    "name":"home/rent"
-  },
-  {
-    "id":2,
-    "name":"water"
-  },
-  {
-    "id":3,
-    "name":"shopping"
-  }];
+  isVisible = false;
+  isConfirmLoading = false;
+  // public category:Category[]=[{
+  //   "id":1,
+  //   "name":"home/rent"
+  // },
+  // {
+  //   "id":2,
+  //   "name":"water"
+  // },
+  // {
+  //   "id":3,
+  //   "name":"shopping"
+  // }];
   public expenses:Expense[]
- =[{
-    "id":1,
-    "amount":100,
-    "description":"online shopping",
-    "date":null,
-    "category":this.category[0]
 
-
-  }];
 
 
   constructor(private expenseService:ExpenseService,
@@ -46,14 +40,21 @@ export class ShowExpenseComponent implements OnInit {
     this.validateForm = this.fb.group({
       datePicker: [null],
     });
-    this.getExpenses(0,0,0,0);
+    this.getExpenses(2,0,9,2020);
   }
 
   getExpenses(type:number,day:number,month:number,year:number): void {
-    this.expenseService.getExpenses(this.expenseService.buildGetUrl(type,day,month,year))
+    console.log("type:"+type+"  month:"+month);
+    var url=this.expenseService.buildGetUrl(type,day,month,year);
+    console.log(url);
+    this.expenseService.getExpenses(url)
       .subscribe(expenses=>this.expenses=expenses);
   }
 
+   buildDate(expense:Expense):string{
+    //console.log(new Date(expense.year,expense.month,expense.day));
+     return  new Date(expense.year,expense.month,expense.day).toLocaleDateString();
+  }
   addExpense(amount:number,date:Date,description:string,cat_id:number,cat_name:string): void{
     description=description.trim();
     cat_name=cat_name.trim();
@@ -61,7 +62,9 @@ export class ShowExpenseComponent implements OnInit {
     var expense:Expense = {
       "id":null,
       "amount":amount,
-      "date" : date,
+      "day":date.getDay(),
+      "month":date.getMonth(),
+      "year":date.getFullYear(),
       "description" : description,
       "category" : {
         "id" : cat_id,
@@ -82,45 +85,45 @@ export class ShowExpenseComponent implements OnInit {
       .subscribe();
   }
 
-  delete(expense:Expense){
+  deleteExpense(expense:Expense){
     this.expenses=this.expenses.filter(e=>e!=expense);
-    this.expenseService.deleteExpense(expense).subscribe();
+    this.expenseService.deleteExpense(expense.id).subscribe(
+      // res=>this.expenses.filter(e=>e!=expense),
+      // error=>console.log(error)
+    );
   }
 
   //for display
-  isVisible = false;
-  isConfirmLoading = false;
  
   submitForm(): void {
     console.log(this.validateForm.value);
-  }
-  showModal(): void {
-    this.isVisible = true;
-  }
-
-  handleOk(): void {
-    this.isConfirmLoading = true;
-    setTimeout(() => {
-      this.isVisible = false;
-      this.isConfirmLoading = false;
-    }, 3000);
+    //this.updateExpense();
+    this.closeDrawer();
   }
 
-  handleCancel(): void {
-    console.log(this.validateForm.value);
-    this.isVisible = false;
-  }
-
-  showDeleteConfirm(): void {
+  showDeleteConfirm(expense:Expense): void {
     this.modal.confirm({
       nzTitle: 'Are you sure delete this task?',
-      nzContent: '<b style="color: red;">Some descriptions</b>',
+      //nzContent: '<b style="color: red;">Are you sure delete this task?</b>',
       nzOkText: 'Yes',
       nzOkType: 'danger',
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => {
+        console.log('OK')
+        this.deleteExpense(expense);
+      },
       nzCancelText: 'No',
       nzOnCancel: () => console.log('Cancel')
     });
+    //this.deleteExpense(expense);
+
+  }
+
+  openDrawer(): void {
+    this.isVisible = true;
+  }
+
+  closeDrawer(): void {
+    this.isVisible = false;
   }
 }
 

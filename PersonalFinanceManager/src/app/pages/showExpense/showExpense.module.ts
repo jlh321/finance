@@ -8,6 +8,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ShowExpenseComponent } from './showExpense.component';
 import { ShowExpenseRoutingModule } from './showExpense-routing.module';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+//import { NzInputModule } from 'ng-zorro-antd/input';
+
 
 @NgModule({
   imports: [
@@ -18,7 +21,9 @@ import { ShowExpenseRoutingModule } from './showExpense-routing.module';
     NzModalModule,
     NzFormModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NzDrawerModule,
+    //NzInputModule
  
   ],
   declarations: [ShowExpenseComponent],
