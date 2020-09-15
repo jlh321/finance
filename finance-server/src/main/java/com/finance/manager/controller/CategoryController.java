@@ -24,7 +24,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping(produces = "application/json", consumes = "application/json")
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Category>> getAllCategories(){
         List<Category> categoryList = categoryService.getAllCategories();
         if(categoryList == null || categoryList.size() ==0){

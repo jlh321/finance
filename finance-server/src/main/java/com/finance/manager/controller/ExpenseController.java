@@ -22,7 +22,7 @@ public class ExpenseController {
         this.expenseService = expenseService;
     }
 
-    @GetMapping(value = "/getbymonth", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getbymonth", produces = "application/json")
     public ResponseEntity<List<Expense>> getExpenseByMonth(@RequestParam int month, @RequestParam int year){
         List<Expense> expenseList = expenseService.getExpenseByMonth(month, year);
         if(null == expenseList || expenseList.size() == 0){
@@ -32,7 +32,7 @@ public class ExpenseController {
         }
     }
 
-    @GetMapping(value = "/getbyday", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/getbyday", produces = "application/json")
     public ResponseEntity<List<Expense>> getExpenseByDay(@RequestParam int day, @RequestParam int month, @RequestParam int year){
         List<Expense> expenseList = expenseService.getExpenseByDay(day, month, year);
         if(null == expenseList || expenseList.size() == 0){
@@ -42,7 +42,7 @@ public class ExpenseController {
         }
     }
 
-    @GetMapping(value = "/all", produces = "application/json", consumes = "application/json")
+    @GetMapping(value = "/all", produces = "application/json")
     public ResponseEntity<Double> getExpenseSumByMonth(@RequestParam int month, @RequestParam int year){
         List<Expense> expenseList = expenseService.getExpenseByMonth(month, year);
         if(null == expenseList || expenseList.size() == 0){

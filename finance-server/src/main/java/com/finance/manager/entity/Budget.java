@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class Budget implements Serializable {
     @Id
-    private String id = null;
+    private String id;
 
     private double amount;
 
