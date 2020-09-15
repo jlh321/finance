@@ -70,7 +70,7 @@ public class ExpenseController {
         }
     }
 
-    @DeleteMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
+    @DeleteMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Expense> deleteExpense(@PathVariable String id){
 //        if (expenseService.existsById(id)) {
             Expense expenseResponse = expenseService.deleteExpense(id);
