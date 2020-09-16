@@ -70,9 +70,9 @@ public class ExpenseServiceImpl implements ExpenseService {
 
 
     @Override
-    public Expense deleteExpense(String id) {
-        Expense expense = expenseRepository.findById(id).get();
-        expenseRepository.deleteById(id);
-        return expense;
+    public Expense deleteExpense(Expense expense) {
+        Expense expenseResponse = expense;
+        expenseRepository.delete(expense);
+        return expenseResponse;
     }
 }

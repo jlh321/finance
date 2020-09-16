@@ -12,6 +12,6 @@ public interface ExpenseService {
     double getExpenseSumByMonth(int month, int year);
     Expense addExpense(Expense expense);
     Expense putExpense(Expense expense);
-    Expense deleteExpense(String id);
+    Expense deleteExpense(Expense expense);
     boolean existsById(String id);
 }

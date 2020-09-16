@@ -1,5 +1,6 @@
 package com.finance.manager.controller;
 
+import com.finance.manager.entity.Budget;
 import com.finance.manager.entity.Expense;
 import com.finance.manager.service.ExpenseService;
 import org.bson.types.ObjectId;
@@ -71,12 +72,12 @@ public class ExpenseController {
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<Expense> deleteExpense(@PathVariable String id){
-//        if (expenseService.existsById(id)) {
-            Expense expenseResponse = expenseService.deleteExpense(id);
+    public ResponseEntity<Expense> deleteExpense(@RequestBody Expense expense){
+        if (expenseService.existsById(expense.getId())) {
+            Expense expenseResponse = expenseService.deleteExpense(expense);
             return ResponseEntity.ok().body(expenseResponse);
-//        }else {
-//            return ResponseEntity.notFound().build();
-//        }
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
