@@ -10,4 +10,5 @@ public interface AccountTransactionService {
     AccountTransaction setAccountTransaction(AccountTransaction accountTransaction);
     AccountTransaction putAccountTransaction(AccountTransaction accountTransaction);
     AccountTransaction deleteAccountTransaction(AccountTransaction accountTransaction);
+    List<AccountTransaction> getAccountTransactionByMonth(int month, int year);
 }

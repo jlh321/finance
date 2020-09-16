@@ -27,6 +27,12 @@ public class AccountTransactionController {
         return ResponseEntity.ok().body(accountTransactionList);
     }
 
+    @GetMapping(value = "/getbymonth", produces = "application/json")
+    public ResponseEntity<List<AccountTransaction>> getAccountTransactionByMonth(@RequestParam int month, @RequestParam int  year){
+        List<AccountTransaction> accountTransactionList = accountTransactionService.getAccountTransactionByMonth(month, year);
+        return ResponseEntity.ok().body(accountTransactionList);
+    }
+
     @PostMapping (produces = "application/json", consumes = "application/json")
     public ResponseEntity<AccountTransaction> setAccountTransaction(@RequestBody AccountTransaction accountTransaction){
         AccountTransaction accountTransaction1 = accountTransactionService.setAccountTransaction(accountTransaction);
@@ -40,7 +46,7 @@ public class AccountTransactionController {
         return ResponseEntity.ok().body(accountTransaction1);
     }
 
-    @DeleteMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
+    @DeleteMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<AccountTransaction> deleteAccountTransaction(@RequestBody AccountTransaction accountTransaction){
         accountTransactionService.deleteAccountTransaction(accountTransaction);
         return ResponseEntity.ok().body(accountTransaction);

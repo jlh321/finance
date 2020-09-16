@@ -44,4 +44,10 @@ public class AccountTransactionServiceImpl implements AccountTransactionService 
         List<AccountTransaction> accountTransactionList = accountTransactionRepository.getAccountTransactionByAccountIs(account);
         return accountTransactionList;
     }
+
+    @Override
+    public List<AccountTransaction> getAccountTransactionByMonth(int month, int year){
+        List<AccountTransaction> accountTransactionList = accountTransactionRepository.getAccountTransactionByMonthIsAndYearIs(month, year);
+        return accountTransactionList;
+    }
 }
