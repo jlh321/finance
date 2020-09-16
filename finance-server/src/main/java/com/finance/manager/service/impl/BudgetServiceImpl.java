@@ -71,7 +71,7 @@ public class BudgetServiceImpl implements BudgetService {
 
     @Override
     public Budget putBudget(Budget budget) {
-        budgetRepository.save(budget);
-        return budget;
+        Budget budget1 = budgetRepository.save(budget);
+        return budget1;
     }
 }

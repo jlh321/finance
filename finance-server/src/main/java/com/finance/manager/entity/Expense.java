@@ -10,12 +10,11 @@ public class Expense {
 
     private double amount;
 
-    private int catId;
+    private Category category;
 
-    public Expense(double amount, int catId, int year, int month, int day, String description) {
-//        this.id = id;
+    public Expense(double amount, Category category, int year, int month, int day, String description) {
         this.amount = amount;
-        this.catId = catId;
+        this.category = category;
         this.year = year;
         this.month = month;
         this.day = day;
@@ -23,7 +22,6 @@ public class Expense {
     }
 
     public Expense(){
-
     }
 
     public int getYear() {
@@ -74,13 +72,7 @@ public class Expense {
         this.amount = amount;
     }
 
-    public int getCatId() {
-        return catId;
-    }
 
-    public void setCatId(int catId) {
-        this.catId = catId;
-    }
 
     public String getDescription() {
         return description;
@@ -90,4 +82,11 @@ public class Expense {
         this.description = description;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
