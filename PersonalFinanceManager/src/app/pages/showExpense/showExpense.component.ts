@@ -67,6 +67,8 @@ export class ShowExpenseComponent implements OnInit {
    // this.expenses=this.expenses.filter(e=>e.id!=expense.id);
    // this.expenses.push(expense);
     var tmpexpense=this.expenses.find(e=>e.id==expense.id);
+    console.log("update:"+expense.month);
+    
     tmpexpense=expense;
     this.expenseService.updateExpense(expense)
       .subscribe();
@@ -95,8 +97,8 @@ export class ShowExpenseComponent implements OnInit {
     console.log(this.validateForm.value);
     this.isVisible = false;
     this.currentExpense.category=this.selectedCategory;
-    this.currentExpense.day=this.date.getDay();
-    this.currentExpense.month=this.date.getMonth();
+    this.currentExpense.day=this.date.getDate();
+    this.currentExpense.month=this.date.getMonth()+1;
     this.currentExpense.year=this.date.getFullYear();
     console.log("after submit before update: "+this.currentExpense.category.name+": " +this.currentExpense.id);
     var expense: Expense=this.currentExpense;
