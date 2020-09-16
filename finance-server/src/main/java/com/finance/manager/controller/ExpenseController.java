@@ -71,7 +71,7 @@ public class ExpenseController {
         }
     }
 
-    @DeleteMapping(value = "/{id}", produces = "application/json")
+    @DeleteMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<Expense> deleteExpense(@RequestBody Expense expense){
         if (expenseService.existsById(expense.getId())) {
             Expense expenseResponse = expenseService.deleteExpense(expense);
