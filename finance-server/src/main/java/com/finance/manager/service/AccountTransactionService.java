@@ -1,12 +1,12 @@
 package com.finance.manager.service;
 
+import com.finance.manager.entity.Account;
 import com.finance.manager.entity.AccountTransaction;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface AccountTransactionService {
-    AccountTransaction setAccountTransaction(AccountTransaction account);
-    AccountTransaction deleteAccountTransaction(int id);
-    List<AccountTransaction> getTransactionsByAccount(int accountId);
+    List<AccountTransaction> getTransactionsByAccount(Account account);
+    AccountTransaction setAccountTransaction(AccountTransaction accountTransaction);
+    AccountTransaction deleteAccountTransaction(AccountTransaction accountTransaction);
 }
