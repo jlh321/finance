@@ -3,7 +3,7 @@
       "target":"http://localhost:8080"
     },
 
-    "/expense/*":{
+    "/api/expense/*":{
       "target":"http://localhost:8080"
     }
 }

@@ -10,7 +10,7 @@ import { Expense } from './expense';
 })
 export class ExpenseService {
 
-  private baseExpenseUrl='expense';
+  private baseExpenseUrl='api/expense';
   httpOptions={
     headers:new HttpHeaders({'Content-Type':'application/json'})
   };
