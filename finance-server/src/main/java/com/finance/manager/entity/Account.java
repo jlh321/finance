@@ -4,22 +4,26 @@ import org.springframework.data.annotation.Id;
 
 public class Account {
     @Id
-    private int id;
+    private String id;
 
     private String name;
 
-    public Account(int id, String name) {
+    public Account(String id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    public Account(String name){
         this.name = name;
     }
 
     public Account(){}
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,7 +1,6 @@
 package com.finance.manager.entity;
 
-import org.bson.types.ObjectId;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.data.annotation.Id;
 
 public class Expense {

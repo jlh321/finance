@@ -4,31 +4,51 @@ import org.springframework.data.annotation.Id;
 
 
 public class AccountTransaction {
+
+
     @Id
-    private int id;
+    private String id;
     private double amount;
     private int year;
     private int month;
     private int day;
     private String description;
-    private int accountId;
+    private Account account;
 
-    public AccountTransaction(int id, double amount, int year, int month, int day, String description, int accountId) {
+
+    public AccountTransaction(String id, double amount, int year, int month, int day, String description, Account account) {
         this.id = id;
         this.amount = amount;
         this.year = year;
         this.month = month;
         this.day = day;
         this.description = description;
-        this.accountId = accountId;
+        this.account = account;
     }
 
-    public int getId() {
+    public AccountTransaction(double amount, int year, int month, int day, String description, Account account) {
+        this.amount = amount;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.description = description;
+        this.account = account;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public double getAmount() {
@@ -71,11 +91,4 @@ public class AccountTransaction {
         this.description = description;
     }
 
-    public int getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
 }

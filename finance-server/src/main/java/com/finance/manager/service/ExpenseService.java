@@ -1,8 +1,6 @@
 package com.finance.manager.service;
 
 import com.finance.manager.entity.Expense;
-import org.bson.types.ObjectId;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
