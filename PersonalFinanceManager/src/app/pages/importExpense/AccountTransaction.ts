@@ -1,6 +1,6 @@
 import { Account } from './Account'
 
-export interface Expense {
+export interface AccountTransaction {
     id: string,
     amount: number,
     year:number,
