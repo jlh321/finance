@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface AccountTransactionRepository extends MongoRepository<AccountTransaction, String> {
     List<AccountTransaction> getAccountTransactionByAccountIs(Account account);
+    List<AccountTransaction> getAccountTransactionByMonthIsAndYearIs(int month, int year);
 }

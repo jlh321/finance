@@ -22,8 +22,14 @@ public class AccountTransactionController {
     }
 
     @GetMapping (produces = "application/json", consumes = "application/json")
-    public ResponseEntity<List<AccountTransaction>> getAllAccountTransactionByAccount(@RequestParam Account account) {
+    public ResponseEntity<List<AccountTransaction>> getAllAccountTransactionByAccount(@RequestBody Account account) {
         List<AccountTransaction> accountTransactionList = accountTransactionService.getTransactionsByAccount(account);
+        return ResponseEntity.ok().body(accountTransactionList);
+    }
+
+    @GetMapping(value = "/getbymonth", produces = "application/json")
+    public ResponseEntity<List<AccountTransaction>> getAccountTransactionByMonth(@RequestParam int month, @RequestParam int  year){
+        List<AccountTransaction> accountTransactionList = accountTransactionService.getAccountTransactionByMonth(month, year);
         return ResponseEntity.ok().body(accountTransactionList);
     }
 
@@ -34,7 +40,13 @@ public class AccountTransactionController {
         return ResponseEntity.created(uri).body(accountTransaction1);
     }
 
-    @DeleteMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
+    @PutMapping (produces = "application/json", consumes = "application/json")
+    public ResponseEntity<AccountTransaction> putAccountTransaction(@RequestBody AccountTransaction accountTransaction){
+        AccountTransaction accountTransaction1 = accountTransactionService.putAccountTransaction(accountTransaction);
+        return ResponseEntity.ok().body(accountTransaction1);
+    }
+
+    @DeleteMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<AccountTransaction> deleteAccountTransaction(@RequestBody AccountTransaction accountTransaction){
         accountTransactionService.deleteAccountTransaction(accountTransaction);
         return ResponseEntity.ok().body(accountTransaction);

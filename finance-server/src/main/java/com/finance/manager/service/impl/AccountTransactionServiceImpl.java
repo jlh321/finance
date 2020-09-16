@@ -28,6 +28,12 @@ public class AccountTransactionServiceImpl implements AccountTransactionService 
     }
 
     @Override
+    public AccountTransaction putAccountTransaction(AccountTransaction accountTransaction) {
+        AccountTransaction accountTransaction1 = accountTransactionRepository.save(accountTransaction);
+        return accountTransaction1;
+    }
+
+    @Override
     public AccountTransaction deleteAccountTransaction(AccountTransaction accountTransaction) {
         accountTransactionRepository.delete(accountTransaction);
         return accountTransaction;
@@ -36,6 +42,12 @@ public class AccountTransactionServiceImpl implements AccountTransactionService 
     @Override
     public List<AccountTransaction> getTransactionsByAccount(Account account) {
         List<AccountTransaction> accountTransactionList = accountTransactionRepository.getAccountTransactionByAccountIs(account);
+        return accountTransactionList;
+    }
+
+    @Override
+    public List<AccountTransaction> getAccountTransactionByMonth(int month, int year){
+        List<AccountTransaction> accountTransactionList = accountTransactionRepository.getAccountTransactionByMonthIsAndYearIs(month, year);
         return accountTransactionList;
     }
 }

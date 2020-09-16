@@ -14,9 +14,10 @@ public class AccountTransaction {
     private int day;
     private String description;
     private Account account;
+    private boolean hasAllocated;
 
 
-    public AccountTransaction(String id, double amount, int year, int month, int day, String description, Account account) {
+    public AccountTransaction(String id, double amount, int year, int month, int day, String description, Account account, boolean hasAllocated) {
         this.id = id;
         this.amount = amount;
         this.year = year;
@@ -24,6 +25,7 @@ public class AccountTransaction {
         this.day = day;
         this.description = description;
         this.account = account;
+        this.hasAllocated = hasAllocated;
     }
 
     public AccountTransaction(double amount, int year, int month, int day, String description, Account account) {
@@ -91,4 +93,11 @@ public class AccountTransaction {
         this.description = description;
     }
 
+    public boolean isHasAllocated() {
+        return hasAllocated;
+    }
+
+    public void setHasAllocated(boolean hasAllocated) {
+        this.hasAllocated = hasAllocated;
+    }
 }
