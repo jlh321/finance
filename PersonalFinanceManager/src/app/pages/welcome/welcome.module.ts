@@ -9,7 +9,8 @@ import { FormsModule} from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NzGridModule } from 'ng-zorro-antd/grid';
-
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 @NgModule({
   imports: [
@@ -18,7 +19,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     NzDatePickerModule,
     FormsModule,
     NgxEchartsModule,
-    NzGridModule
+    NzGridModule,
+    NzStatisticModule,
+    NzCardModule
   ],
   providers: [DatePipe],
   declarations: [WelcomeComponent],

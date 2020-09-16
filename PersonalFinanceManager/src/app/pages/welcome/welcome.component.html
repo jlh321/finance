@@ -1,12 +1,41 @@
 <nz-month-picker [(ngModel)]="date" [nzAllowClear]=false [nzFormat]="monthFormat" (ngModelChange)="onChange($event)" 
 nzPlaceHolder="Select month"></nz-month-picker>
-
+<br>
+<br>
+    <nz-row [nzGutter]="16">
+      <nz-col [nzSpan]="12">
+        <nz-card>
+          <nz-statistic
+            [nzValue]=totalExpense
+            [nzTitle]="'Expense'"
+            [nzPrefix]="prefixTplOne"
+            [nzSuffix]="'￥'"
+            [nzValueStyle]="{ color: '#3F8600' }"
+          >
+          </nz-statistic>
+          <ng-template #prefixTplOne><i nz-icon nzType="arrow-up"></i></ng-template>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="12">
+        <nz-card>
+          <nz-statistic
+            [nzValue]=totalBudget
+            [nzTitle]="'Budget'"
+            [nzPrefix]="prefixTplTwo"
+            [nzSuffix]="'￥'"
+            [nzValueStyle]="{ color: '#CF1322' }"
+          >
+          </nz-statistic>
+          <ng-template #prefixTplTwo><i nz-icon nzType="arrow-down"></i></ng-template>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+<br>
 <nz-row [nzGutter]="16">
     <nz-col [nzSpan]="12">
-      
+        <div echarts [options]="option1" ></div>
     </nz-col>
     <nz-col [nzSpan]="12">
-     
+        <div echarts [options]="option2" ></div>
     </nz-col>
 </nz-row>
-<div echarts [options]="option" style="height:400px;width:50%"></div>
