@@ -8,5 +8,6 @@ import java.util.List;
 public interface AccountTransactionService {
     List<AccountTransaction> getTransactionsByAccount(Account account);
     AccountTransaction setAccountTransaction(AccountTransaction accountTransaction);
+    AccountTransaction putAccountTransaction(AccountTransaction accountTransaction);
     AccountTransaction deleteAccountTransaction(AccountTransaction accountTransaction);
 }

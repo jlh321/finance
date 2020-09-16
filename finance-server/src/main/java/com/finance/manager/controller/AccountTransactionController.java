@@ -34,6 +34,12 @@ public class AccountTransactionController {
         return ResponseEntity.created(uri).body(accountTransaction1);
     }
 
+    @PutMapping (produces = "application/json", consumes = "application/json")
+    public ResponseEntity<AccountTransaction> putAccountTransaction(@RequestBody AccountTransaction accountTransaction){
+        AccountTransaction accountTransaction1 = accountTransactionService.putAccountTransaction(accountTransaction);
+        return ResponseEntity.ok().body(accountTransaction1);
+    }
+
     @DeleteMapping(value = "/{id}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<AccountTransaction> deleteAccountTransaction(@RequestBody AccountTransaction accountTransaction){
         accountTransactionService.deleteAccountTransaction(accountTransaction);

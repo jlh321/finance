@@ -28,6 +28,12 @@ public class AccountTransactionServiceImpl implements AccountTransactionService 
     }
 
     @Override
+    public AccountTransaction putAccountTransaction(AccountTransaction accountTransaction) {
+        AccountTransaction accountTransaction1 = accountTransactionRepository.save(accountTransaction);
+        return accountTransaction1;
+    }
+
+    @Override
     public AccountTransaction deleteAccountTransaction(AccountTransaction accountTransaction) {
         accountTransactionRepository.delete(accountTransaction);
         return accountTransaction;
