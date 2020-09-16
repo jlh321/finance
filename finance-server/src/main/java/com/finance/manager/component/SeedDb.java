@@ -24,6 +24,9 @@ public class SeedDb {
 
     @PostConstruct
     public void init(){
+        budgetRepository.deleteAll();
+        expenseRepository.deleteAll();
+        categoryRepository.deleteAll();
         //init predefined categories
         categoryRepository.save(new Category("Utilities"));
         categoryRepository.save(new Category("Travel"));
