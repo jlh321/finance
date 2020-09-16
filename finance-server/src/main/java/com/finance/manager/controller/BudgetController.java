@@ -31,11 +31,7 @@ public class BudgetController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<List<Budget>> getBudgetByMonth(@RequestParam int month, @RequestParam int year){
         List<Budget> budgetList = budgetService.getBudgetByMonth(month, year);
-        if(null == budgetList || budgetList.size() == 0){
-            return ResponseEntity.notFound().build();
-        }else {
-            return ResponseEntity.ok().body(budgetList);
-        }
+        return ResponseEntity.ok().body(budgetList);
     }
 
     @PostMapping(produces = "application/json", consumes = "application/json")
