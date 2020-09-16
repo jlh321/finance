@@ -1,5 +1,13 @@
 {
     "/api":{
       "target":"http://localhost:8080"
+    },
+
+    "/api/expense/*":{
+      "target":"http://localhost:8080"
+    },
+
+    "/api/category/*":{
+      "target":"http://localhost:8080"
     }
 }
