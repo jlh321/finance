@@ -1,4 +1,12 @@
-<p>
-    welcome works!
-</p>
-  
+<nz-month-picker [(ngModel)]="date" [nzAllowClear]=false [nzFormat]="monthFormat" (ngModelChange)="onChange($event)" 
+nzPlaceHolder="Select month"></nz-month-picker>
+
+<nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="12">
+      
+    </nz-col>
+    <nz-col [nzSpan]="12">
+     
+    </nz-col>
+</nz-row>
+<div echarts [options]="option" style="height:400px;width:50%"></div>

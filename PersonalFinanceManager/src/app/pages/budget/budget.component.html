@@ -1,8 +1,29 @@
-<p>
-  budget works!
-</p>
-<nz-month-picker [(ngModel)]="date" [nzFormat]="monthFormat" (ngModelChange)="onChange($event)" 
+
+<nz-month-picker [(ngModel)]="date" [nzAllowClear]=false [nzFormat]="monthFormat" (ngModelChange)="onChange($event)" 
 nzPlaceHolder="Select month"></nz-month-picker>
-<p>The sum of budget of this month is 5000.0</p>
+<h2>The sum of budget of this month is {{totalBudget}}</h2>
 
+<nz-table #basicTable [nzData]="showList" [nzPageSize]=7>
+  <thead>
+    <tr>
+      <th>Category Name</th>
+      <th>Budget</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.category.name }}</td>
+      <td>{{ data.amount }}</td>
+      <td>
+        <a (click)="showEditModal(data)">Set Budget</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
 
+<nz-modal [(nzVisible)]="isEditVisible" nzTitle="Set Budget" nzOkText="Set" nzCancelText="Cancel"
+(nzOnCancel)="handleEditCancel()" (nzOnOk)="handleEditOk()">
+ <p>Please Enter Your Budget</p>
+ <input nz-input [(ngModel)]="editValue" />
+</nz-modal>

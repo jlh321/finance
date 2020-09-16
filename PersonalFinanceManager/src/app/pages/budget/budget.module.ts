@@ -5,6 +5,9 @@ import { BudgetRoutingModule } from './budget-routing.module';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import {FormsModule} from '@angular/forms';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { DatePipe } from '@angular/common';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzInputModule } from 'ng-zorro-antd/input';
 
 @NgModule({
   imports: [
@@ -12,8 +15,11 @@ import { NzTableModule } from 'ng-zorro-antd/table';
     BudgetRoutingModule,
     NzDatePickerModule,
     FormsModule,
-    NzTableModule
+    NzTableModule,
+    NzModalModule,
+    NzInputModule
   ],
+  providers: [DatePipe],
   declarations: [BudgetComponent],
   exports: [BudgetComponent]
 })

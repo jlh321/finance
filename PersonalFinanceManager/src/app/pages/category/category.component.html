@@ -1,23 +1,31 @@
-<ul nz-list [nzDataSource]="categories" nzBordered nzSize="large">
+<ul nz-list [nzDataSource]="categoryList" nzBordered nzSize="large">
   <nz-list-header>Categories</nz-list-header>
-  <li nz-list-item *ngFor="let item of categories" nzNoFlex>
+  <li nz-list-item *ngFor="let item of categoryList" nzNoFlex>
     {{ item.name }}
     <ul nz-list-item-actions>
       <nz-list-item-action>
-        <a (click)="showModal(item)">edit </a>
-        <a>remove</a>
+        <a (click)="showEditModal(item)">edit </a>
+        <a (click)="showRemoveModal(item)">remove</a>
       </nz-list-item-action>
     </ul>
   </li>
-  <nz-list-footer><a>Add Category</a></nz-list-footer>
+  <nz-list-footer><a (click)="showAddModal()">Add Category</a></nz-list-footer>
 </ul>
 
-
-<ul> 
-    <h3>http</h3>
-    <h3>{{anyList}}</h3>
-</ul>
-
-<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
- <p>{{categoryItem.name}}</p>
+<nz-modal [(nzVisible)]="isEditVisible" nzTitle="Edit Category Name" nzOkText="Edit" nzCancelText="Cancel"
+(nzOnCancel)="handleEditCancel()" (nzOnOk)="handleEditOk()">
+ <p>The Former Category Name Is : {{categoryItem.name}}</p>
+ <p>Please Enter Your New Category Name :</p>
+ <input nz-input [(ngModel)]="editValue" />
 </nz-modal>
+
+<nz-modal [(nzVisible)]="isRemoveVisible" nzTitle="Remove Category" nzOkText="Remove" nzCancelText="Cancel"
+(nzOnCancel)="handleRemoveCancel()" (nzOnOk)="handleRemoveOk()">
+  <p>Are you sure to remove this category : {{categoryItem.name}}</p>
+</nz-modal>
+
+ <nz-modal [(nzVisible)]="isAddVisible" nzTitle="Add Category" nzOkText="Add" nzCancelText="Cancel"
+ (nzOnCancel)="handleAddCancel()" (nzOnOk)="handleAddOk()">
+  <p>New Category :</p>
+  <input nz-input placeholder="Please Enter Your New Category Name" [(ngModel)]="addValue" />
+ </nz-modal>

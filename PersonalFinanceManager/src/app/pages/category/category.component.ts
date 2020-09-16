@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { DataService } from '../../service/data.service'
 
 @Component({
   selector: 'app-category',
@@ -7,30 +7,85 @@ import { HttpClient } from '@angular/common/http'
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  public anyList:any
+  public categoryList:any;
   public categoryItem:any = "";
-  isVisible = false;
-  constructor(private http:HttpClient) { }
+  editValue:any;
+  addValue = "";
+  isEditVisible = false;
+  isRemoveVisible = false;
+  isAddVisible = false;
+  constructor(
+    private dataService:DataService
+  ) { }
 
   ngOnInit() {
-    this.http.get("/budget/sum").subscribe(res=>{ this.anyList = res })
+    this.getData();
+  }
+
+  getData():void {
+    this.dataService.getAll("/api/category").subscribe(res=>{
+      this.categoryList = res;
+    });
   }
   
-  showModal(item:any): void {
+  showEditModal(item:any): void {
     this.categoryItem = item;
-    this.isVisible = true;
+    this.isEditVisible = true;
+    this.editValue = item.name;
     console.log(item.name);
     console.log(this.categoryItem.name);
   }
 
-  handleOk(): void {
-    console.log('Button ok clicked!');
-    this.isVisible = false;
+  handleEditOk(): void {
+    this.categoryItem.name = this.editValue;
+    this.dataService.edit("/api/category",this.categoryItem).subscribe(res=>{
+      console.log(res);
+      this.getData();
+    });
+    this.isEditVisible = false;
   }
 
-  handleCancel(): void {
-    console.log('Button cancel clicked!');
-    this.isVisible = false;
+  handleEditCancel(): void {
+    this.isEditVisible = false;
+  }
+
+  showRemoveModal(item:any): void {
+    this.categoryItem = item;
+    this.isRemoveVisible = true;
+    console.log(item.name);
+    console.log(this.categoryItem.name);
+  }
+
+  handleRemoveOk(): void {
+    this.dataService.delete("/api/category",this.categoryItem.id).subscribe(res=>{
+      console.log(res);
+      this.getData();
+    });
+    this.isRemoveVisible = false;
+  }
+
+  handleRemoveCancel(): void {
+    this.isRemoveVisible = false;
+  }
+
+  showAddModal(): void {
+    this.isAddVisible = true;
+  }
+
+  handleAddOk(): void {
+    const data = {
+      name:this.addValue
+    }
+    this.dataService.create("/api/category",data).subscribe(res=>{
+      console.log(res);
+      this.getData();
+    });
+    this.addValue = "";
+    this.isAddVisible = false;
+  }
+
+  handleAddCancel(): void {
+    this.isAddVisible = false;
   }
 
   categories = [
