@@ -21,11 +21,7 @@ export class ShowExpenseComponent implements OnInit {
   selectedCategory:Category;
   date: Date;
 
-  //call api categories
-  // categories:Category[]=[{
-  //   "id":"5f61d18349a55832271dd89b",
-  //   "name":"Car Payments"
-  // }];;
+
   public expenses:Expense[]
   public categories:Category[];
 
