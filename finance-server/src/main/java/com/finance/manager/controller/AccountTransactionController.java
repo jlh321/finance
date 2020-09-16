@@ -22,7 +22,7 @@ public class AccountTransactionController {
     }
 
     @GetMapping (produces = "application/json", consumes = "application/json")
-    public ResponseEntity<List<AccountTransaction>> getAllAccountTransactionByAccount(@RequestParam Account account) {
+    public ResponseEntity<List<AccountTransaction>> getAllAccountTransactionByAccount(@RequestBody Account account) {
         List<AccountTransaction> accountTransactionList = accountTransactionService.getTransactionsByAccount(account);
         return ResponseEntity.ok().body(accountTransactionList);
     }
