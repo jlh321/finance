@@ -43,7 +43,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         if(expenseList == null || expenseList.size() == 0){
             return 0;
         }else {
-            int sum = 0;
+            double sum = 0;
             for(Expense expense : expenseList){
                 sum += expense.getAmount();
             }

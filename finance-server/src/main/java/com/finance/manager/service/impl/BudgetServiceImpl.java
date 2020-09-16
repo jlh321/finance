@@ -32,7 +32,7 @@ public class BudgetServiceImpl implements BudgetService {
         if (budgetList == null || budgetList.size() == 0) {
             return 0;
         } else {
-            int sum = 0;
+            double sum = 0;
             for (Budget budget : budgetList) {
                 sum += budget.getAmount();
             }

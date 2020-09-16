@@ -39,7 +39,7 @@ public class ExpenseController {
     public ResponseEntity<Double> getExpenseSumByMonth(@RequestParam int month, @RequestParam int year){
         List<Expense> expenseList = expenseService.getExpenseByMonth(month, year);
         if(null == expenseList || expenseList.size() == 0){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok().body(0.0);
         }else {
             Double expenseSumByMonth = expenseService.getExpenseSumByMonth(month, year);
             return ResponseEntity.ok().body(expenseSumByMonth);
