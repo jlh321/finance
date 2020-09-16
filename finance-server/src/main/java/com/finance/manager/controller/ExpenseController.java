@@ -26,21 +26,13 @@ public class ExpenseController {
     @GetMapping(value = "/getbymonth", produces = "application/json")
     public ResponseEntity<List<Expense>> getExpenseByMonth(@RequestParam int month, @RequestParam int year){
         List<Expense> expenseList = expenseService.getExpenseByMonth(month, year);
-        if(null == expenseList || expenseList.size() == 0){
-            return ResponseEntity.notFound().build();
-        }else {
-            return ResponseEntity.ok().body(expenseList);
-        }
+        return ResponseEntity.ok().body(expenseList);
     }
 
     @GetMapping(value = "/getbyday", produces = "application/json")
     public ResponseEntity<List<Expense>> getExpenseByDay(@RequestParam int day, @RequestParam int month, @RequestParam int year){
         List<Expense> expenseList = expenseService.getExpenseByDay(day, month, year);
-        if(null == expenseList || expenseList.size() == 0){
-            return ResponseEntity.notFound().build();
-        }else {
-            return ResponseEntity.ok().body(expenseList);
-        }
+        return ResponseEntity.ok().body(expenseList);
     }
 
     @GetMapping(value = "/all", produces = "application/json")
