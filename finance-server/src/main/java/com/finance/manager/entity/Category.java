@@ -1,6 +1,5 @@
 package com.finance.manager.entity;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 public class Category {
