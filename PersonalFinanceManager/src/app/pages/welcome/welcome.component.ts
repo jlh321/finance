@@ -19,6 +19,11 @@ export class WelcomeComponent implements OnInit {
   totalExpense:number;
   totalBudget:number;
   expenseToBudget:any;
+  expenseList:any;
+  categoryList:any;
+  catExpenseList:any;
+  catExpenseMap:any;
+
   constructor(
     private dataService:DataService,
     private datePipe: DatePipe
@@ -26,18 +31,23 @@ export class WelcomeComponent implements OnInit {
 
   ngOnInit() {
     this.date = Date.now();
-    this.getData(this.date);
+    this.getData();
   }
 
   onChange(result: Date): void {
     console.log('onChange: ', result);
     console.log('onChange: ', this.date);
-    this.getData(result);
+    this.getData();
   }
 
-  getData(date: Date) {
-    let year = this.datePipe.transform(date,"y");
-    let month = this.datePipe.transform(date,"M");
+  getData() {
+    this.getChartOneData()
+    this.getChartTwoData();
+  }
+
+  getChartOneData() {
+    let year = this.datePipe.transform(this.date,"y");
+    let month = this.datePipe.transform(this.date,"M");
     this.dataService.getAllByMonth("/api/expense/all",year,month).subscribe(res=>{
       this.totalExpense = res;
       console.log(this.totalExpense);
@@ -60,13 +70,39 @@ export class WelcomeComponent implements OnInit {
       console.log(this.expenseToBudget);
       this.initChartOne(this.expenseToBudget);
     });
-
-    this.getChartTwoData();
   }
 
   getChartTwoData() {
-    
-    this.initChartTwo();
+    let year = this.datePipe.transform(this.date,"y");
+    let month = this.datePipe.transform(this.date,"M");
+    this.dataService.getAllByMonth("/api/expense/getbymonth",year,month).subscribe(res=>{
+      this.expenseList = res;
+      console.log(this.expenseList);
+      this.categoryList = new Array<string>();
+      this.catExpenseList = new Array<CatExpense>();
+      this.catExpenseMap = new Map();
+      for(let i=0;i<this.expenseList.length;i++){
+        let catgoryName = this.expenseList[i].category.name;
+        let amount = this.expenseList[i].amount;
+        this.categoryList.push(catgoryName);
+        if(this.catExpenseMap.has(catgoryName)){
+          amount = amount + this.catExpenseMap.get(catgoryName);
+          this.catExpenseMap.set(catgoryName,amount);
+        }else{
+          this.catExpenseMap.set(catgoryName,amount);
+        }
+      }
+      console.log(this.categoryList);
+      console.log(this.catExpenseMap);
+      for (let entry of this.catExpenseMap.entries()) {
+        let catExpense = new CatExpense();
+        catExpense.name = entry[0];
+        catExpense.value = entry[1];
+        this.catExpenseList.push(catExpense);
+      }
+      console.log(this.catExpenseList);
+      this.initChartTwo();
+    });
   }
 
   initChartOne(data){
@@ -102,11 +138,11 @@ export class WelcomeComponent implements OnInit {
       legend: {
           left: 'center',
           top: 'bottom',
-          data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6', 'rose7', 'rose8']
+          data: this.categoryList
       },
       series: [
           {
-              name: '半径模式',
+              name: 'Category Expense',
               type: 'pie',
               radius: [20, 110],
               roseType: 'radius',
@@ -115,19 +151,15 @@ export class WelcomeComponent implements OnInit {
                       show: true
                   }
               },
-              data: [
-                  {value: 10, name: 'rose1'},
-                  {value: 5, name: 'rose2'},
-                  {value: 15, name: 'rose3'},
-                  {value: 25, name: 'rose4'},
-                  {value: 20, name: 'rose5'},
-                  {value: 35, name: 'rose6'},
-                  {value: 30, name: 'rose7'},
-                  {value: 40, name: 'rose8'}
-              ]
+              data:this.catExpenseList
           }
       ]
     };
   }
 
+}
+
+class CatExpense{
+  value:any;
+  name:any;
 }
