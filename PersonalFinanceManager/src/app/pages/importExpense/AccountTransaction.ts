@@ -1,4 +1,4 @@
-import { Category } from '../category/category'
+import { Account } from './Account'
 
 export interface Expense {
     id: string,
@@ -7,5 +7,5 @@ export interface Expense {
     month:number,
     day:number
     description: string,
-    category: Category 
+    account: Account 
 }

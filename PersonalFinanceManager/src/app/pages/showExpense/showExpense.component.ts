@@ -22,20 +22,12 @@ export class ShowExpenseComponent implements OnInit {
   date: Date;
 
   //call api categories
-  public categories:Category[]=[{
-    "id":1,
-    "name":"home/rent"
-  },
-  {
-    "id":2,
-    "name":"water"
-  },
-  {
-    "id":3,
-    "name":"shopping"
-  }];
+  // categories:Category[]=[{
+  //   "id":"5f61d18349a55832271dd89b",
+  //   "name":"Car Payments"
+  // }];;
   public expenses:Expense[]
-
+  public categories:Category[];
 
 
   constructor(private expenseService:ExpenseService,
@@ -47,6 +39,7 @@ export class ShowExpenseComponent implements OnInit {
       datePicker: [null],
     });
     this.getExpenses(2,0,9,2020);
+    this.getCategories();
   }
 
 
@@ -58,52 +51,43 @@ export class ShowExpenseComponent implements OnInit {
       .subscribe(expenses=>this.expenses=expenses);
   }
 
-  
-  addExpense(amount:number,date:Date,description:string,cat_id:number,cat_name:string): void{
-    description=description.trim();
-    cat_name=cat_name.trim();
+  getCategories():void{
+    var url="api/category";
+    this.expenseService.getCategories(url)
+      .subscribe(categories=>this.categories=categories);
+  }
 
-    var expense:Expense = {
-      "id":null,
-      "amount":amount,
-      "day":date.getDay(),
-      "month":date.getMonth(),
-      "year":date.getFullYear(),
-      "description" : description,
-      "category" : {
-        "id" : cat_id,
-        "name":cat_name
-      }
-    }
-
-    if(!expense){return; }
+  addExpense(expense:Expense): void{
     this.expenseService.addExpense(expense)
       .subscribe(expense=>
       this.expenses.push(expense));
   }
 
   updateExpense(expense:Expense): void {
-    this.expenses=this.expenses.filter(e=>e.id!=expense.id);
-    this.expenses.push(expense);
+   // this.expenses=this.expenses.filter(e=>e.id!=expense.id);
+   // this.expenses.push(expense);
+    var tmpexpense=this.expenses.find(e=>e.id==expense.id);
+    tmpexpense=expense;
     this.expenseService.updateExpense(expense)
       .subscribe();
   }
 
   deleteExpense(expense:Expense){
     this.expenses=this.expenses.filter(e=>e!=expense);
-    this.expenseService.deleteExpense(expense.id).subscribe(
+    this.expenseService.deleteExpense(expense).subscribe(
       // res=>this.expenses.filter(e=>e!=expense),
       // error=>console.log(error)
     );
   }
 
   buildDateString(expense:Expense):string{
-    return  new Date(expense.year,expense.month,expense.day).toLocaleDateString();
+    console.log("datetostring:"+new Date(expense.year,expense.month-1,expense.day).toLocaleDateString());
+    return  new Date(expense.year,expense.month-1,expense.day).toLocaleDateString();
   }
 
   buildDate(expense:Expense):Date{
     console.log(expense.month)
-    return  new Date(expense.year,expense.month,expense.day);
+    return  new Date(expense.year,expense.month-1,expense.day);
   }
 
   //for display

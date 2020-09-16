@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 
 
 import { Expense } from './expense';
+import { Category } from '../category/category';
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +26,15 @@ export class ExpenseService {
     console.log("type:"+type+"  month:"+month);
     switch (type){
     case 1:
-      url=this.baseExpenseUrl+'?day='+day+'&month='+month+'&year='+year;
+      url=this.baseExpenseUrl+'/getbyday'+'?day='+day+'&month='+month+'&year='+year;
       break;
     case 2:
       console.log("enter");
-      url=this.baseExpenseUrl+'?month='+month+'&year='+year;
+      url=this.baseExpenseUrl+'/getbymonth'+'?month='+month+'&year='+year;
+     
       break;
     case 3:
-      url=this.baseExpenseUrl+'?year='+year;
+      url=this.baseExpenseUrl+'/getbyyear'+'?year='+year;
       break;
     default:
       url=this.baseExpenseUrl;
@@ -49,13 +51,19 @@ updateExpense(expense: Expense):Observable<any>{
 }
 
 addExpense(expense:Expense):Observable<Expense>{
+  console.log("enter add");
   return this.http.post<Expense>(this.baseExpenseUrl,expense,this.httpOptions);
 }
 
-deleteExpense(id: number):Observable<Expense>{
-  var url:string=this.baseExpenseUrl+"/"+id;
-  console.log("delete url : "+url);
-  return this.http.delete<Expense>(url);
+deleteExpense(expense: Expense):Observable<Expense>{
+   var httpOptions={
+    headers:new HttpHeaders({'Content-Type':'application/json'}),
+    body:expense
+  };
+  return this.http.delete<Expense>(this.baseExpenseUrl,httpOptions);
 }
 
+getCategories(url:string):Observable<Category[]>{
+  return this.http.get<Category[]>(url);
+}
 }

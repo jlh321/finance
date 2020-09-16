@@ -23,19 +23,11 @@ export class AddExpenseComponent implements OnInit {
   }
   date:Date;
   selectedCategory:Category;
-  categories:Category[]=[{
-    "id":1,
-    "name":"home/rent"
-  },
-  {
-    "id":2,
-    "name":"water"
-  },
-  {
-    "id":3,
-    "name":"shopping"
-  }];;
-
+  // categories:Category[]=[{
+  //   "id":"5f61d18349a55832271dd89b",
+  //   "name":"Car Payments"
+  // }];;
+  categories:Category[];
   constructor(private fb: FormBuilder,
               private expenseService: ExpenseService) { }
 
@@ -43,11 +35,13 @@ export class AddExpenseComponent implements OnInit {
     this.validateForm = this.fb.group({
   
     });
+    this.getCategories();
   }
 
 
   buildDateString(expense:Expense):string{
-    return  new Date(expense.year,expense.month,expense.day).toLocaleDateString();
+    console.log("datetostring:"+new Date(expense.year,expense.month-1,expense.day).toLocaleDateString());
+    return  new Date(expense.year,expense.month-1,expense.day).toLocaleDateString();
   }
 
   buildDate(expense:Expense):Date{
@@ -57,15 +51,26 @@ export class AddExpenseComponent implements OnInit {
   addExpense(expense:Expense): void{
     if(!expense){return; }
     this.expenseService.addExpense(expense)
-      .subscribe();
+      .subscribe(
+        res=>console.log(res)
+      );
   }
 
+  getCategories():void{
+    var url="api/category";
+    this.expenseService.getCategories(url)
+      .subscribe(categories=>this.categories=categories);
+  }
   //for display
   submitForm(): void {
     console.log(this.validateForm.value);
     this.newExpense.category=this.selectedCategory;
-    this.newExpense.day=this.date.getDay();
-    this.newExpense.month=this.date.getMonth();
+    console.log("day:"+this.date);
+    console.log("day:"+this.date.getDate());
+    console.log("month:"+(this.date.getMonth()+1));
+    console.log("year:"+this.date.getFullYear());
+    this.newExpense.day=this.date.getDate();
+    this.newExpense.month=this.date.getMonth()+1;
     this.newExpense.year=this.date.getFullYear();
     console.log("after submit before ADD: "+this.newExpense.category.name+": " +this.newExpense.id);
     this.addExpense(this.newExpense);
