@@ -1,43 +1,35 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
-    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>DatePicker</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-date-picker formControlName="datePicker"></nz-date-picker>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>amount</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="amount" [(ngModel)]="newExpense.amount" [ngModelOptions]="{standalone: true}"
+        value="{{newExpense.amount}}" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>DatePicker[ShowTime]</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-date-picker nzShowTime formControlName="datePickerTime"></nz-date-picker>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>description</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input nz-input id="description" [(ngModel)]="newExpense.description"
+        [ngModelOptions]="{standalone: true}" value="{{newExpense.description}}" />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>MonthPicker</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-month-picker formControlName="monthPicker"></nz-month-picker>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>date</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-date-picker [(ngModel)]="date" [ngModelOptions]="{standalone: true}"
+        (ngModelChange)="onChangeDate($event)"></nz-date-picker>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>RangePicker</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-range-picker formControlName="rangePicker"></nz-range-picker>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>catogory</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-select [(ngModel)]="selectedCategory" [ngModelOptions]="{standalone: true}"
+        (ngModelChange)="onChangeCategory($event)">
+        <nz-option *ngFor="let data of categories" [nzValue]="data" [nzLabel]="data.name"></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>RangePicker[showTime]</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-range-picker nzShowTime formControlName="rangePickerTime"></nz-range-picker>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>TimePicker</nz-form-label>
-    <nz-form-control [nzSm]="16" [nzXs]="24">
-      <nz-time-picker formControlName="timePicker"></nz-time-picker>
-    </nz-form-control>
-  </nz-form-item>
-  <nz-form-item>
-    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 16, offset: 8 }">
-      <button nz-button nzType="primary">Submit</button>
-    </nz-form-control>
-  </nz-form-item>
+  <button nz-button class="form-margin" nzType="primary" (click)="submitForm()">Submit</button>
+</nz-form-item>
 </form>

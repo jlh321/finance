@@ -3,3 +3,8 @@
     margin-bottom: 12px;
   }
 
+[nz-form] {
+  max-width: 600px;
+}
+
+
