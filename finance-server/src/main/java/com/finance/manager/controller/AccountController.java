@@ -22,7 +22,7 @@ public class AccountController {
     }
 
     @GetMapping (produces = "application/json")
-    public ResponseEntity<List<Account>> getAllCategories(){
+    public ResponseEntity<List<Account>> getAllAccounts(){
         List<Account> accountList = accountService.getAllAccounts();
         return ResponseEntity.ok().body(accountList);
     }
