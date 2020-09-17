@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -80,15 +81,29 @@ class BudgetServiceImplTest {
 
     @Test
     void existsById() {
+        Budget budget = new Budget(12.D, new Category("1", "Rent"), 2019, 11);
+        budget.setId("12");
+        Optional<Budget> option = Optional.of(budget);
+
+        doReturn(option).when(budgetRepository).findById(anyString());
+        Boolean result = test.existsById("12");
+        assertNotNull(result);
+
+    }
+//    @Test
+//    void existsById_false() {
 //        Budget budget = new Budget(12.D, new Category("1", "Rent"), 2019, 11);
 //        budget.setId("12");
 //
-//        doReturn(budget).when(budgetRepository).existsById(anyString());
+//        Optional<Budget> option = Optional.ofNullable(budget);
+//        option.orElse(null);
+//        option = option.filter(item -> item.getId().equals("13") );
+//
+//        doReturn(option).when(budgetRepository).findById(anyString());
 //        Boolean result = test.existsById("12");
 //        assertNotNull(result);
-
-    }
-
+//
+//    }
 
 
 
