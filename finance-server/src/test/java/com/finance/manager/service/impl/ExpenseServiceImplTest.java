@@ -86,11 +86,8 @@ class ExpenseServiceImplTest {
 
     @Test
     void existsById() {
-
         doReturn(Boolean.TRUE).when(expenseRepository).existsById(anyString());
         Boolean result =test.existsById("1111");
         assertNotNull(result);
-
-
     }
 }
