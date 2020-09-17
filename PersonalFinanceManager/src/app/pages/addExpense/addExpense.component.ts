@@ -95,7 +95,8 @@ export class AddExpenseComponent implements OnInit {
   submitSuccess(): void {
     const modal = this.modalService.success({
       nzTitle: 'Submit notification message',
-      nzContent: 'Submit Successful'
+      nzContent: 'Submit Successful',
+      nzOkText: 'Ok'
     });
 
     setTimeout(() => modal.destroy(), 3000);
