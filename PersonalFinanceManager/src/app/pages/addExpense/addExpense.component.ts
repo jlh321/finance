@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Expense } from '../showExpense/expense';
 import {Category} from '../category/category';
 import {ExpenseService} from '../showExpense/expense.service'
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-addExpense',
@@ -29,7 +30,8 @@ export class AddExpenseComponent implements OnInit {
   // }];;
   categories:Category[];
   constructor(private fb: FormBuilder,
-              private expenseService: ExpenseService) { }
+              private expenseService: ExpenseService,
+              private modalService: NzModalService) { }
 
   ngOnInit() {
     this.validateForm = this.fb.group({
@@ -74,6 +76,7 @@ export class AddExpenseComponent implements OnInit {
     this.newExpense.year=this.date.getFullYear();
     console.log("after submit before ADD: "+this.newExpense.category.name+": " +this.newExpense.id);
     this.addExpense(this.newExpense);
+    this.submitSuccess();
     
   }
 
@@ -87,5 +90,14 @@ export class AddExpenseComponent implements OnInit {
     console.log('onChange: ', result);
     console.log('currentExpense: '+this.newExpense.category.name)
     console.log('selected: '+this.selectedCategory.name)
+  }
+
+  submitSuccess(): void {
+    const modal = this.modalService.success({
+      nzTitle: 'Submit notification message',
+      nzContent: 'Submit Successful'
+    });
+
+    setTimeout(() => modal.destroy(), 3000);
   }
 }
