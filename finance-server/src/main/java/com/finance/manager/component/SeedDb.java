@@ -27,6 +27,8 @@ public class SeedDb {
         budgetRepository.deleteAll();
         expenseRepository.deleteAll();
         categoryRepository.deleteAll();
+        accountRepository.deleteAll();
+        accountTransactionRepository.deleteAll();
         //init predefined categories
         categoryRepository.save(new Category("Utilities"));
         categoryRepository.save(new Category("Travel"));
@@ -42,9 +44,8 @@ public class SeedDb {
         expenseRepository.save(new Expense(22.1,categoryRepository.getCategoryByNameIs("Car Payments"),2020,9,22,"dea"));
         expenseRepository.save(new Expense(22.1,categoryRepository.getCategoryByNameIs("Car Payments"),2020,9,21,"qqq"));
         expenseRepository.save(new Expense(22.1,categoryRepository.getCategoryByNameIs("Car Payments"),2020,9,20,"eee"));
-
-        //        accountRepository.save(new Account(1,"Water"));
-//        accountRepository.save(new Account(2,"Gas"));
-//        accountTransactionRepository.save(new AccountTransaction(112,21,2020,9,14,"good",1));
+        accountRepository.save(new Account("Water"));
+        accountRepository.save(new Account("Gas"));
+        accountTransactionRepository.save(new AccountTransaction(112,21,2020,9,"good",accountRepository.getAccountByNameIs("Water"),true));
     }
 }

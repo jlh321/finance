@@ -28,13 +28,14 @@ public class AccountTransaction {
         this.hasAllocated = hasAllocated;
     }
 
-    public AccountTransaction(double amount, int year, int month, int day, String description, Account account) {
+    public AccountTransaction(double amount, int year, int month, int day, String description, Account account, boolean hasAllocated) {
         this.amount = amount;
         this.year = year;
         this.month = month;
         this.day = day;
         this.description = description;
         this.account = account;
+        this.hasAllocated = hasAllocated;
     }
 
     public String getId() {
