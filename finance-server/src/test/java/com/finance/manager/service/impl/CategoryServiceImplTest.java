@@ -14,7 +14,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
 class CategoryServiceImplTest {
     private CategoryRepository categoryRepository;
@@ -47,12 +49,11 @@ class CategoryServiceImplTest {
 
     @Test
     void deleteCategory() {
-//        Category category = new Category("1111","2222");
-//        doNothing().when(categoryRepository).deleteById(anyString());
-//
-//        doReturn(category).when(categoryRepository).findById(anyString());
-//        Category result = test.deleteCategory(category.getId());
-//        assertNotNull(result);
+        Category category = new Category("1111","2222");
+        Optional<Category> option = Optional.of(category);
+        doReturn(option).when(categoryRepository).findById(anyString());
+        Category result = test.deleteCategory(category.getId());
+        assertNotNull(result);
 
     }
 
